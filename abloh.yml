@@ -19,8 +19,8 @@ setup:
 
 # Rebuild recipe for the proof container. Comments name the source file.
 environment:
-  runtimeImage: node:20.20.2-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0 # reviewed Node 20 image (your CI's own Node, node >= 20 in package.json, and a .nvmrc would outrank it)
+  runtimeImage: node:20.20.2-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0 # abloh.yml
   installDirectory: .
   setup: .abloh/setup.sh # written by init and yours to edit. Every cold run executes it step by step
-  testCommand: npm run test:unit # set by you
-  runner: node-test # abloh measures node-test. But your test script also runs npm run test:specs (node-test)
+  testCommand: npm run test:unit # abloh.yml. this runs other commands rather than a test runner, so abloh cannot see the individual tests inside it: the baseline will report 0 executed tests and the run will refuse rather than score your suite. Name one runner directly here, or name a script in this package.json whose command is one runner invocation, and that changes
+  runner: node-test # abloh.yml
